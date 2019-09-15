@@ -19,8 +19,9 @@ jobs:
       with:
         args: "glances-docker sbonnick/glances-docker"
     - uses: actions/docker/login@master
-      with:
-        secrets: ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     - uses: actions/docker/cli@master
       with:
         args: "push sbonnick/glances-docker"
