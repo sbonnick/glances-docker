@@ -1,0 +1,15 @@
+name: Publish Docker Image
+
+on:
+  schedule:
+    - cron:  '0 0 * * 0'
+    branches:
+      - master
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag sbonnick/glances-docker:$(date +%s)
