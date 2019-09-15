@@ -1,6 +1,8 @@
 FROM python:3-alpine
 
-RUN apk add py-pip python-dev linux-headers musl-dev lm_sensors wireless-tools \
+
+RUN apk add --update gcc libc-dev py-pip python3-dev linux-headers musl-dev lm_sensors wireless-tools \
+    && rm -rf /var/cache/apk/* \
     && pip install --upgrade pip \
     && pip install psutil bottle setuptools glances[action,batinfo,browser,cpuinfo,docker,export,folders,gpu,graph,ip,raid,snmp,web,wifi,hddtemp] \
     && pip install glances
