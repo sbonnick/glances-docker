@@ -12,10 +12,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - uses: "actions/docker/cli@master"
-      args: "build -t sbonnick/glances-docker ."
-    - uses: "actions/docker/tag@master"
-      args: "glances-docker sbonnick/glances-docker"
+    - uses: actions/docker/cli@master
+      with:
+        args: "build -t glances-docker ."
+    - uses: actions/docker/tag@master
+      with:
+        args: "glances-docker sbonnick/glances-docker"
     - uses: actions/docker/login@master
-      secrets: ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
+      with:
+        secrets: ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
+    - uses: actions/docker/cli@master
+      with:
+        args: "push sbonnick/glances-docker"
     
