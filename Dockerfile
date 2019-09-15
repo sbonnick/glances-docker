@@ -1,11 +1,10 @@
 FROM python:3-alpine
 
 
-RUN apk add --update gcc libc-dev py-pip python3-dev linux-headers musl-dev lm_sensors wireless-tools \
-    && rm -rf /var/cache/apk/* \
-    && pip install --upgrade pip \
-    && pip install psutil bottle setuptools glances[action,batinfo,browser,cpuinfo,docker,export,folders,gpu,graph,ip,raid,snmp,web,wifi,hddtemp] \
-    && pip install glances
+RUN apk add --update gcc libc-dev py3-pip py3-zmq python3 python3-dev linux-headers musl-dev lm_sensors wireless-tools build-base libzmq zeromq-dev \
+    && pip3 install psutil bottle glances[action,batinfo,browser,cpuinfo,docker,export,folders,gpu,graph,ip,raid,snmp,web,wifi,hddtemp] \
+    && apk del build-base musl-dev python3-dev zeromq-dev gcc libc-dev \
+    && rm -rf /var/cache/apk/*
 
 VOLUME /glances
 WORKDIR /glances
