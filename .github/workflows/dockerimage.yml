@@ -12,5 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag sbonnick/glances-docker:$(date +%s)
+    - uses: "actions/docker/cli@master"
+      args: "build -t sbonnick/glances-docker ."
+    - uses: "actions/docker/tag@master"
+      args: "glances-docker sbonnick/glances-docker"
+    - uses: actions/docker/login@master
+      secrets: ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
+    
