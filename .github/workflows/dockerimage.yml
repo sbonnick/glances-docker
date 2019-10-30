@@ -11,18 +11,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/docker/cli@master
-      with:
-        args: "build -t glances-docker ."
-    - uses: actions/docker/tag@master
-      with:
-        args: "glances-docker sbonnick/glances-docker"
-    - uses: actions/docker/login@master
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-    - uses: actions/docker/cli@master
-      with:
-        args: "push sbonnick/glances-docker"
-    
+      - uses: actions/checkout@master
+      - uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: sbonnick/glances-docker
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          snapshot: true   
