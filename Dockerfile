@@ -7,6 +7,8 @@ RUN apk update \
     && apk del build-base musl-dev python3-dev zeromq-dev gcc libc-dev \
     && rm -rf /var/cache/apk/*
 
+RUN ln -s /usr/bin/python3 /usr/bin/python
+
 VOLUME /glances
 WORKDIR /glances
 
